@@ -9,9 +9,9 @@
 - file: path=/etc/service state=directory
 - file: path=/var/log/{{riemann_tools_cmd}} state=directory
 
-- shell: pip install httplib2
-- shell: gem install nokogiri -- --use-system-libraries --with-xml2-include=/usr/include/libxml2/
-- gem: name=bundler state=present
+#- shell: pip install httplib2
+#- shell: gem install nokogiri -- --use-system-libraries --with-xml2-include=/usr/include/libxml2/
+#- gem: name=bundler state=present
 - shell: gem install beefcake -v 1.0.0
 - shell: gem install riemann-tools
 
@@ -20,4 +20,5 @@
 
 - file: src=/etc/sv/{{riemann_tools_cmd}}  dest=/etc/service/{{riemann_tools_cmd}} state=link
 - runit: name={{riemann_tools_cmd}} state=started
+- shell: "sv restart {{riemann_tools_cmd}}"
 
