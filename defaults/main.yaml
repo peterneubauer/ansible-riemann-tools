@@ -1,0 +1,17 @@
+---
+riemann_tools_user: "riemann"
+riemann_tools_cmd: "riemann-health"
+riemann_tools_options: ""
+riemann_tools_upstart_template: "riemann_health_run.sh"
+riemann_tools_upstart_name: "{{ riemann_tools_cmd }}"
+riemann_tools_dest_host: "{{ riemann_host }}"
+riemann_tools_dest_port: "{{ riemann_port }}"
+
+riemann_apt_dependencies:
+  - build-essential
+  - libxml2-dev
+  - libxml2
+  - ruby
+  - ruby-dev
+  - libxslt1-dev
+  - python-pip

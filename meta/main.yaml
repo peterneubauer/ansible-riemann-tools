@@ -1,0 +1,7 @@
+---
+allow_duplicates: yes
+dependencies:
+  - role: system_user
+    system_user: "{{ riemann_tools_user }}"
+  - role: rvm_io.rvm1-ruby
+  - role: bakins.runit
