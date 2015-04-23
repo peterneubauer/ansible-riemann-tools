@@ -13,7 +13,7 @@
 #- shell: gem install nokogiri -- --use-system-libraries --with-xml2-include=/usr/include/libxml2/
 #- gem: name=bundler state=present
 - shell: gem install beefcake -v 1.0.0
-- shell: gem install riemann-tools
+- gem: name=riemann-tools state=present
 
 - template: dest=/etc/sv/riemann-health/run mode=0755 src=riemann_health_run.sh
 - template: dest=/etc/sv/riemann-health/log/run mode=0755 src=log_run
