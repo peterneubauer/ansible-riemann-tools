@@ -5,20 +5,30 @@
   apt: pkg={{ item }} state=present
   with_items: riemann_apt_dependencies
 
-- file: path=/etc/sv/{{riemann_tools_cmd}}/log state=directory
 - file: path=/etc/service state=directory
-- file: path=/var/log/{{riemann_tools_cmd}} state=directory
 
-#- shell: pip install httplib2
-#- shell: gem install nokogiri -- --use-system-libraries --with-xml2-include=/usr/include/libxml2/
-#- gem: name=bundler state=present
+- file: path=/var/log/{{riemann_tools_cmd}} state=directory
+- file: path=/etc/sv/{{riemann_tools_cmd}}/log state=directory
+
+- file: path=/var/log/riemann-net state=directory
+- file: path=/etc/sv/riemann-net/log state=directory
+
 - shell: gem install beefcake -v 1.0.0
 - gem: name=riemann-tools state=present
 
+- name: install riemann-tools in the system ruby just for good measure
+  command: 'gem install riemann-tools'
+
+
 - template: dest=/etc/sv/riemann-health/run mode=0755 src=riemann_health_run.sh
 - template: dest=/etc/sv/riemann-health/log/run mode=0755 src=log_run
+- template: dest=/etc/sv/riemann-net/run mode=0755 src=riemann_net_run.sh
+- template: dest=/etc/sv/riemann-net/log/run mode=0755 src=log_run_net
 
 - file: src=/etc/sv/{{riemann_tools_cmd}}  dest=/etc/service/{{riemann_tools_cmd}} state=link
 - runit: name={{riemann_tools_cmd}} state=started
 - shell: "sv restart {{riemann_tools_cmd}}"
 
+- file: src=/etc/sv/riemann-net  dest=/etc/service/riemann-net state=link
+- runit: name=riemann-net state=started
+- shell: "sv restart riemann-net"
