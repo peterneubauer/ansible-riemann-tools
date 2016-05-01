@@ -1,7 +1,4 @@
 ---
-allow_duplicates: yes
 dependencies:
   - role: rvm_io.rvm1-ruby
   - role: bakins.runit
-
-version: 0.0.1
