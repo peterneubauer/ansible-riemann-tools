@@ -7,9 +7,13 @@
 
 - file: path=/etc/service state=directory
 
-- file: path=/var/log/{{riemann_tools_cmd}} state=directory
+- file: path=/var/log/riemann-net/ state=directory
+- file: path=/etc/sv/riemann-net state=directory
 - file: path=/etc/sv/riemann-net/log state=directory
-- file: path=/etc/sv/riemann_net}}/log state=directory
+
+- file: path=/var/log/riemann-health state=directory
+- file: path=/etc/sv/riemann-health state=directory
+- file: path=/etc/sv/riemann-health/log state=directory
 
 - shell: gem install beefcake -v 1.0.0
 - gem: name=riemann-tools state=present
